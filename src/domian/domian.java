@@ -1,4 +1,4 @@
-package domain;
+package domian;
 
 public class domian {
 }
