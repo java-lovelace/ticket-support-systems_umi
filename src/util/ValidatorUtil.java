@@ -1,6 +1,7 @@
 package util;
 
 import domain.Ticket;
+import domain.Usuario;
 
 public class ValidatorUtil {
 
@@ -30,6 +31,27 @@ public class ValidatorUtil {
     public static boolean validarRol(String rol) {
         if (rol == null || rol.isBlank()) return false;
         rol = rol.toLowerCase();
-        return rol.equals("reporter") || rol.equals("operator") || rol.equals("coordinator");
+        return rol.equals("reporter") || rol.equals("operador") || rol.equals("coordinator");
     }
+
+    public static boolean validarUsuario(Usuario usuario) {
+        if (usuario.getNombre() == null || usuario.getNombre().isBlank()) {
+            System.out.println("El nombre no puede estar vacío.");
+            return false;
+        }
+        if (usuario.getEmail() == null || usuario.getEmail().isBlank()) {
+            System.out.println("El email no puede estar vacío.");
+            return false;
+        }
+        if (!usuario.getEmail().contains("@")) {
+            System.out.println("El email debe contener '@'.");
+            return false;
+        }
+        if (!validarRol(usuario.getRol())) {
+            System.out.println("El rol ingresado no es válido (solo REPORTER, OPERADOR o COORDINATOR).");
+            return false;
+        }
+        return true;
+    }
+
 }

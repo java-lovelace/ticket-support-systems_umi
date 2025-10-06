@@ -17,10 +17,12 @@ public class UsuarioController {
         System.out.println("=== Registrar Usuario ===");
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
+        System.out.print("Email: ");
+        String email = sc.nextLine();
         System.out.print("Rol: ");
-        String rol = sc.nextLine();
+        String rol = sc.nextLine().toUpperCase();
 
-        usuarioService.registrarUsuario(nombre, rol);
+        usuarioService.registrarUsuario(nombre , email , rol);
         System.out.println("Usuario registrado correctamente.");
     }
 

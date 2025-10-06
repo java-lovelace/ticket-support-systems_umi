@@ -14,10 +14,17 @@ public class UsuarioService {
     }
 
     // Registrar un nuevo usuario
-    public Usuario registrarUsuario(String nombre, String rol) {
+    public Usuario registrarUsuario(String nombre, String email, String rol) {
         Usuario usuario = new Usuario();
         usuario.setNombre(nombre);
-        usuario.setRol(rol);
+        usuario.setEmail(email);
+        usuario.setRol(rol.toUpperCase());
+
+        if (!util.ValidatorUtil.validarUsuario(usuario)) {
+            System.out.println("No se pudo registrar el usuario. Datos inválidos.");
+            return null;
+        }
+
         usuarioDao.crear(usuario);
         return usuario;
     }
