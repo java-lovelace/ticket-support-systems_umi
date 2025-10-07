@@ -3,3 +3,10 @@
 /.idea/
 /lib/postgresql-*.jar
 *.iml
+.idea/
+*.iml
+out/
+*.class
+build/
+.gradle/
+*.log
