@@ -2,8 +2,6 @@ package view;
 
 import controller.TicketController;
 import controller.UsuarioController;
-import util.AuthUtil;
-
 import java.util.Scanner;
 
 public class MenuView {

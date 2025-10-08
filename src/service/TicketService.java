@@ -1,27 +1,32 @@
 package service;
 
 import dao.TicketDao;
+import dao.jdbc.TicketDaoJdbc;
 import domain.Ticket;
 import domain.dto.CategoriaEstadisticaDto;
 import domain.dto.TicketDetalleDto;
+import util.ValidatorUtil;
 
 import java.util.List;
 
 public class TicketService {
-    private final TicketDao ticketDao;
+    private final TicketDao ticketDao = new TicketDaoJdbc();
+    private ValidatorUtil validatorUtil;
 
-    public TicketService(TicketDao ticketDao) {
-        this.ticketDao = ticketDao;
-    }
+    public TicketService() {}
 
     // Crear un nuevo ticket y devolver su ID
     public Long crearTicket(Ticket ticket) {
+        if (ValidatorUtil.validarTicket(ticket)){
+            return null;
+        }
         return ticketDao.crear(ticket);
     }
 
     // Asignar un ticket a un usuario
-    public void asignarTicket(long ticketId, long usuarioId) {
-        ticketDao.asignar(ticketId, usuarioId);
+    public boolean asignarTicket(long ticketId, long usuarioId) {
+        boolean result = ticketDao.asignar(ticketId, usuarioId);
+        return result;
     }
 
     // Cambiar el estado de un ticket

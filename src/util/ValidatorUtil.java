@@ -15,6 +15,23 @@ public class ValidatorUtil {
             System.out.println("La descripción no puede estar vacía.");
             return false;
         }
+        if (ticket.getReporterId() == null || ticket.getReporterId() <= 0) {
+            System.out.println("El id del reporter no es valido.");
+            return false;
+        }
+        if (ticket.getEstadoId() == null || ticket.getEstadoId() <= 0) {
+            System.out.println("El id del estado no es valido.");
+            return false;
+        }
+        if (ticket.getAssigneeId() == null || ticket.getAssigneeId() <= 0) {
+            System.out.println("El id del estado no es valido.");
+            return false;
+        }
+        if (ticket.getCategoriaId() == null || ticket.getCategoriaId() <= 0) {
+            System.out.println("El id del estado no es valido.");
+            return false;
+        }
+
         return true;
     }
 
@@ -31,7 +48,7 @@ public class ValidatorUtil {
     public static boolean validarRol(String rol) {
         if (rol == null || rol.isBlank()) return false;
         rol = rol.toLowerCase();
-        return rol.equals("reporter") || rol.equals("operador") || rol.equals("coordinator");
+        return rol.equals("reporter") || rol.equals("operador") || rol.equals("coordinator") || rol.equals("assignee");
     }
 
     public static boolean validarUsuario(Usuario usuario) {

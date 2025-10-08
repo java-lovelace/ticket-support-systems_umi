@@ -16,8 +16,8 @@ public class TicketDaoJdbc implements TicketDao {
     @Override
     public Long crear(Ticket t) {
         final String sql = """
-            INSERT INTO public.tickets (titulo, descripcion, reporter_id, categoria_id, estado_id)
-            VALUES (?, ?, ?, ?, ?)
+            INSERT INTO public.tickets (titulo, descripcion, reporter_id, categoria_id, estado_id, assignee_id)
+            VALUES (?, ?, ?, ?, ?, ?)
             """;
         try (Connection con = ConfigDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -25,7 +25,8 @@ public class TicketDaoJdbc implements TicketDao {
             ps.setString(2, t.getDescripcion());
             ps.setLong(3, t.getReporterId());
             ps.setLong(4, t.getCategoriaId());
-            ps.setLong(5, t.getEstadoId()); // normalmente el Service pondrá 'ABIERTO'
+            ps.setLong(5, t.getEstadoId());// normalmente el Service pondrá 'ABIERTO'
+            ps.setLong(6, t.getAssigneeId());
 
             ps.executeUpdate();
             try (ResultSet rs = ps.getGeneratedKeys()) {
@@ -42,20 +43,25 @@ public class TicketDaoJdbc implements TicketDao {
     }
 
     @Override
-    public void asignar(long ticketId, long assigneeId) {
+    public boolean asignar(long ticketId, long assigneeId) {
         final String sql = """
             UPDATE public.tickets
                SET assignee_id = ?, fecha_asignacion = NOW(), fecha_actualizacion = NOW()
              WHERE id = ?
             """;
+
+        boolean result = true;
+
         try (Connection con = ConfigDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql)) {
             ps.setLong(1, assigneeId);
             ps.setLong(2, ticketId);
             if (ps.executeUpdate() == 0) throw new RuntimeException("Ticket no encontrado");
         } catch (SQLException e) {
+            result = false;
             throw new RuntimeException("Error asignando ticket", e);
         }
+        return result;
     }
 
     @Override

@@ -1,17 +1,23 @@
 package controller;
 
+import domain.Categoria;
+import domain.Estado;
+import domain.Usuario;
+import service.CategoriaService;
+import service.EstadoService;
 import service.TicketService;
 import domain.Ticket;
+import service.UsuarioService;
 
+import java.util.List;
 import java.util.Scanner;
 
 public class TicketController {
-    private final TicketService ticketService;
+    private final TicketService ticketService = new TicketService();
+    private UsuarioService usuarioService = new UsuarioService();
+    private CategoriaService categoriaService = new CategoriaService();
+    private EstadoService estadoService = new EstadoService();
     private final Scanner sc = new Scanner(System.in);
-
-    public TicketController(TicketService ticketService) {
-        this.ticketService = ticketService;
-    }
 
     // Crear un nuevo ticket
     public void manejarCreacion() {
@@ -21,12 +27,42 @@ public class TicketController {
         System.out.print("Descripción: ");
         String descripcion = sc.nextLine();
 
+        System.out.println("== REPORTERS ==\n");
+        List<Usuario> reportes =  usuarioService.listarPorRol("REPORTER");
+        System.out.println(reportes);
+        System.out.println("Ingrese el id del Reporter:");
+        Long reporterId = sc.nextLong();
+
+        System.out.println("== CATEGORIAS ==");
+        List<Categoria> categorias = categoriaService.listarTodas();
+        System.out.println(categorias);
+        System.out.println("Ingrese el id de la Categoria:");
+        Long categoriaId = sc.nextLong();
+
+        System.out.println("== ESTADO ==");
+        List<Estado> estados = estadoService.listarTodos();
+        System.out.println(estados);
+        System.out.println("Ingrese el id del Estado: ");
+        Long estadoId = sc.nextLong();
+
+        System.out.println("== ASSIGNEE ==");
+        List<Usuario> usuarios = usuarioService.listarPorRol("ASSIGNEE");
+        System.out.println(usuarios);
+        System.out.println("Ingresa el id del Assignee (opcional):");
+        Long assigneeId = sc.nextLong();
+
         Ticket ticket = new Ticket();
         ticket.setTitulo(titulo);
         ticket.setDescripcion(descripcion);
+        ticket.setReporterId(reporterId);
+        ticket.setCategoriaId(categoriaId);
+        ticket.setAssigneeId(assigneeId);
 
-        ticketService.crearTicket(ticket);
-        System.out.println("Ticket creado correctamente.\n");
+
+        Long result = ticketService.crearTicket(ticket);
+        if (!(result == null)) {
+            System.out.println("Ticket creado correctamente.\n");
+        }
     }
 
     // Asignar ticket
@@ -34,12 +70,18 @@ public class TicketController {
         System.out.println("\nAsignar Ticket");
         System.out.print("ID del Ticket: ");
         long idTicket = sc.nextLong();
-        System.out.print("ID del Usuario a asignar: ");
+
+        System.out.println("== ASSIGNEE ==");
+        List<Usuario> usuarios = usuarioService.listarPorRol("ASSIGNEE");
+        System.out.println(usuarios);
+        System.out.println("Ingresa el id del Assignee (opcional):");
         long idUsuario = sc.nextLong();
         sc.nextLine(); // limpiar buffer
 
-        ticketService.asignarTicket(idTicket, idUsuario);
-        System.out.println("Ticket asignado correctamente.\n");
+        boolean result  = ticketService.asignarTicket(idTicket, idUsuario);
+        if (result) {
+            System.out.println("Ticket asignado correctamente.\n");
+        }
     }
 
     // Cambiar estado

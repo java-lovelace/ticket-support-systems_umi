@@ -1,15 +1,12 @@
 package service;
 
 import dao.CategoriaDao;
+import dao.jdbc.CategoriaDaoJdbc;
 import domain.Categoria;
 import java.util.List;
 
 public class CategoriaService {
-    private CategoriaDao categoriaDao;
-
-    public void setCategoriaDao(CategoriaDao categoriaDao) {
-        this.categoriaDao = categoriaDao;
-    }
+    private CategoriaDao categoriaDao = new CategoriaDaoJdbc();
 
     public List<Categoria> listarTodas() {
 

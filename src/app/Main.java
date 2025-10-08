@@ -17,12 +17,12 @@ public class Main {
         UsuarioDao usuarioDao = new UsuarioDaoJdbc();
 
         // Crear Services
-        TicketService ticketService = new TicketService(ticketDao);
-        UsuarioService usuarioService = new UsuarioService(usuarioDao);
+        TicketService ticketService = new TicketService();
+        UsuarioService usuarioService = new UsuarioService();
 
         // Crear Controllers
-        TicketController ticketController = new TicketController(ticketService);
-        UsuarioController usuarioController = new UsuarioController(usuarioService);
+        TicketController ticketController = new TicketController();
+        UsuarioController usuarioController = new UsuarioController();
 
         // Crear View
         MenuView menu = new MenuView(ticketController, usuarioController);

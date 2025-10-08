@@ -7,7 +7,7 @@ public class Ticket {
     private String titulo;
     private String descripcion;
     private Long reporterId;   // usuario que reporta
-    private Long assigneeId;   // usuario asignado (nullable)
+    private Long assigneeId = null;   // usuario asignado (nullable)
     private Long categoriaId;
     private Long estadoId;
     private OffsetDateTime fechaCreacion;

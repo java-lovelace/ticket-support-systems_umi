@@ -8,7 +8,7 @@ import java.util.List;
 
 public interface TicketDao {
     Long crear(Ticket t);                                          // inserta y retorna id
-    void asignar(long ticketId, long assigneeId);                  // set assignee + fecha_asignacion
+    boolean asignar(long ticketId, long assigneeId);                  // set assignee + fecha_asignacion
     void cambiarEstado(long ticketId, long estadoId);              // set estado + fecha_actualizacion
     void agregarComentario(long ticketId, String texto);           // inserta comentario
 

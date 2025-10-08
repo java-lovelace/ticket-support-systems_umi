@@ -1,24 +1,18 @@
 package service;
 
 import dao.UsuarioDao;
+import dao.jdbc.UsuarioDaoJdbc;
 import domain.Usuario;
 
 import java.util.List;
 import java.util.Optional;
 
 public class UsuarioService {
-    private final UsuarioDao usuarioDao;
-
-    public UsuarioService(UsuarioDao usuarioDao) {
-        this.usuarioDao = usuarioDao;
-    }
+    private final UsuarioDao usuarioDao = new UsuarioDaoJdbc();
 
     // Registrar un nuevo usuario
-    public Usuario registrarUsuario(String nombre, String email, String rol) {
-        Usuario usuario = new Usuario();
-        usuario.setNombre(nombre);
-        usuario.setEmail(email);
-        usuario.setRol(rol.toUpperCase());
+    public Usuario registrarUsuario(Usuario usuario) {
+
 
         if (!util.ValidatorUtil.validarUsuario(usuario)) {
             System.out.println("No se pudo registrar el usuario. Datos inválidos.");
