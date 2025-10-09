@@ -17,7 +17,7 @@ public class TicketDaoJdbc implements TicketDao {
     public Long crear(Ticket t) {
         final String sql = """
             INSERT INTO public.tickets (titulo, descripcion, reporter_id, categoria_id, estado_id, assignee_id)
-            VALUES (?, ?, ?, ?, ?, ?)
+            VALUES (?, ?, ?, ?, ?, Null)
             """;
         try (Connection con = ConfigDB.getConnection();
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
@@ -26,7 +26,8 @@ public class TicketDaoJdbc implements TicketDao {
             ps.setLong(3, t.getReporterId());
             ps.setLong(4, t.getCategoriaId());
             ps.setLong(5, t.getEstadoId());// normalmente el Service pondrá 'ABIERTO'
-            ps.setLong(6, t.getAssigneeId());
+//            System.out.println(t.getAssigneeId() + " :::eso es el usuario");
+//            ps.setLong(6, t.getAssigneeId());
 
             ps.executeUpdate();
             try (ResultSet rs = ps.getGeneratedKeys()) {

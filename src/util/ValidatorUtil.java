@@ -20,15 +20,16 @@ public class ValidatorUtil {
             return false;
         }
         if (ticket.getEstadoId() == null || ticket.getEstadoId() <= 0) {
+            System.out.println(ticket.getEstadoId() + " no es valido.");
             System.out.println("El id del estado no es valido.");
             return false;
         }
-        if (ticket.getAssigneeId() == null || ticket.getAssigneeId() <= 0) {
-            System.out.println("El id del estado no es valido.");
-            return false;
-        }
+//        if (ticket.getAssigneeId() < 0) {
+//            System.out.println("El id del assignee no es valido.");
+//            return false;
+//        }
         if (ticket.getCategoriaId() == null || ticket.getCategoriaId() <= 0) {
-            System.out.println("El id del estado no es valido.");
+            System.out.println("El id del categoria no es valido.");
             return false;
         }
 

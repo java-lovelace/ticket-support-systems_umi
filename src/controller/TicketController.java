@@ -45,18 +45,23 @@ public class TicketController {
         System.out.println("Ingrese el id del Estado: ");
         Long estadoId = sc.nextLong();
 
-        System.out.println("== ASSIGNEE ==");
-        List<Usuario> usuarios = usuarioService.listarPorRol("ASSIGNEE");
-        System.out.println(usuarios);
-        System.out.println("Ingresa el id del Assignee (opcional):");
-        Long assigneeId = sc.nextLong();
+//        System.out.println("== ASSIGNEE ==");
+//        List<Usuario> usuarios = usuarioService.listarPorRol("ASSIGNEE");
+//        System.out.println(usuarios);
+//        System.out.println("Ingresa el id del Assignee (opcional ingresa cero parano ingresar usuario):");
+//        Long assigneeId = sc.nextLong();
 
         Ticket ticket = new Ticket();
         ticket.setTitulo(titulo);
         ticket.setDescripcion(descripcion);
         ticket.setReporterId(reporterId);
         ticket.setCategoriaId(categoriaId);
-        ticket.setAssigneeId(assigneeId);
+//        if (assigneeId == 0) {
+//            assigneeId = ticket.getAssigneeId();
+//        }
+//        System.out.println(assigneeId + "  :::holaa");
+//        ticket.setAssigneeId(assigneeId);
+        ticket.setEstadoId(estadoId);
 
 
         Long result = ticketService.crearTicket(ticket);

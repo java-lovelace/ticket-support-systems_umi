@@ -18,7 +18,7 @@ public class UsuarioDaoJdbc implements UsuarioDao {
              PreparedStatement ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS)) {
             ps.setString(1, u.getNombre());
             ps.setString(2, u.getEmail());
-            ps.setString(3, "hash_demo");   // el Service luego pondrá el hash real
+            ps.setString(3, "hash_demo");// el Service luego pondrá el hash real
             ps.setString(4, u.getRol());
             ps.executeUpdate();
             try (ResultSet rs = ps.getGeneratedKeys()) {

@@ -17,7 +17,7 @@ public class TicketService {
 
     // Crear un nuevo ticket y devolver su ID
     public Long crearTicket(Ticket ticket) {
-        if (ValidatorUtil.validarTicket(ticket)){
+        if (!ValidatorUtil.validarTicket(ticket)){
             return null;
         }
         return ticketDao.crear(ticket);
