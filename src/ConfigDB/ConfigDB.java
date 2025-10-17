@@ -18,7 +18,7 @@ public class ConfigDB {
                     + "?sslmode=require&preferQueryMode=simple";
 
     private static final String USER = "postgres.pathbalepzhuoknkhcvj";
-    private static final String PASS = "cXC9h#yXX2s!qQ6"; // NO LA SUBAN AL REPO MANADA DE MONGOLOS
+    private static final String PASS = "cXC9h#yXX2s!qQ6";
 
     static {
         try { Class.forName("org.postgresql.Driver"); }
